@@ -18,6 +18,8 @@ attrs==24.2.0
     # via ics
 beautifulsoup4==4.12.3
     # via cycloplanning
+blinker==1.8.2
+    # via flask
 certifi==2024.8.30
     # via requests
 cfgv==3.4.0
@@ -26,6 +28,7 @@ charset-normalizer==3.3.2
     # via requests
 click==8.1.7
     # via cycloplanning
+    # via flask
 coverage==7.6.1
     # via pytest-cov
 decorator==5.1.1
@@ -37,6 +40,8 @@ executing==2.1.0
     # via stack-data
 filelock==3.16.1
     # via virtualenv
+flask==3.0.3
+    # via cycloplanning
 ics==0.7.2
     # via cycloplanning
 identify==2.6.1
@@ -48,8 +53,15 @@ iniconfig==2.0.0
 ipdb==0.13.13
 ipython==8.27.0
     # via ipdb
+itsdangerous==2.2.0
+    # via flask
 jedi==0.19.1
     # via ipython
+jinja2==3.1.4
+    # via flask
+markupsafe==2.1.5
+    # via jinja2
+    # via werkzeug
 matplotlib-inline==0.1.7
     # via ipython
 nodeenv==1.9.1
@@ -106,3 +118,5 @@ virtualenv==20.26.5
     # via pre-commit
 wcwidth==0.2.13
     # via prompt-toolkit
+werkzeug==3.0.4
+    # via flask
