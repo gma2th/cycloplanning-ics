@@ -1,0 +1,38 @@
+[project]
+name = "cycloplanning"
+version = "0.1.0"
+description = "A project to parse the cycloplanning as ICS"
+authors = [
+    { name = "gma2th", email = "gma2th@proton.me" }
+]
+dependencies = [
+    "ics>=0.7.2",
+    "requests>=2.32.3",
+    "beautifulsoup4>=4.12.3",
+    "click>=8.1.7",
+    "ruff>=0.6.7",
+]
+readme = "README.md"
+requires-python = ">= 3.8"
+
+[project.scripts]
+"cycloplanning" = "cycloplanning.cli:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.rye]
+managed = true
+dev-dependencies = [
+    "ipdb>=0.13.13",
+    "pytest>=8.3.3",
+    "pre-commit>=3.8.0",
+    "pytest-cov>=5.0.0",
+]
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/cycloplanning"]

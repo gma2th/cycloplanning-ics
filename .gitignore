@@ -1,0 +1,17 @@
+cycloplanning.ics
+
+# python coverage
+.coverage
+coverage.xml
+report.xml
+
+# python generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# venv
+.venv
