@@ -1,6 +1,6 @@
 [project]
 name = "cycloplanning"
-version = "0.1.0"
+version = "0.1.1"
 description = "A project to parse the cycloplanning as ICS"
 authors = [
     { name = "gma2th", email = "gma2th@proton.me" }
