@@ -1,3 +1,4 @@
-FROM python:slim
-RUN --mount=source=dist,target=/dist pip install --no-cache /dist/*.whl
-CMD cycloplanning
+FROM --platform=linux/amd64 python:slim
+RUN pip install uv
+RUN --mount=source=dist,target=/dist uv pip install --system --no-cache /dist/*.whl
+CMD cycloplanning --help
