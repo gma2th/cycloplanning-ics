@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from datetime import datetime, timedelta
+from collections.abc import Iterable
 from bs4 import BeautifulSoup
 import requests
 import ics
@@ -34,11 +35,8 @@ def get_html(url: str) -> str:
     return response.content
 
 
-def parse_html(html: str) -> list[dict]:
+def parse_html(html: str) -> Iterable[dict]:
     soup = BeautifulSoup(html, "html.parser")
-
-    # Initialize an empty list to store dictionaries
-    events = []
 
     # Find the header row to start processing
     header_row = soup.find("td", string=lambda x: x and "Date" in x)
@@ -58,12 +56,10 @@ def parse_html(html: str) -> list[dict]:
             if row_dict["Jour"] == "Date":
                 continue
 
-            events.append(row_dict)
-    return events
+            yield row_dict
 
 
-def parse_events(raw_events: list[dict]) -> list[Event]:
-    events = []
+def parse_events(raw_events: Iterable[dict]) -> Iterable[Event]:
     for raw_event in raw_events:
         start_date = datetime.strptime(raw_event["Date"], "%d/%m")
         start_date = start_date.replace(year=datetime.today().year)
@@ -86,8 +82,7 @@ def parse_events(raw_events: list[dict]) -> list[Event]:
             location=raw_event["Adresse"],
             attendees=attendees,
         )
-        events.append(event)
-    return events
+        yield event
 
 
 def create_ics(raw_events: list[Event]) -> ics.Calendar:

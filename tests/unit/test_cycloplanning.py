@@ -4,7 +4,7 @@ from cycloplanning import HEADERS, Event, create_ics, parse_html, parse_events
 
 
 def test_parse_html(cycloplanning_html):
-    res = parse_html(cycloplanning_html)
+    res = list(parse_html(cycloplanning_html))
     assert len(res) == 2
     assert all(k in res[0] for k in HEADERS)
 
@@ -36,7 +36,7 @@ def test_parse_events():
     # When
     events = parse_events(raw_events)
     # Then
-    assert events[0] == expected_event
+    assert next(events) == expected_event
 
 
 def test_create_ics():
