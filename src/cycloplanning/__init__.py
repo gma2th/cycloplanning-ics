@@ -1,3 +1,4 @@
+import pytz
 from dataclasses import dataclass
 from datetime import datetime, timedelta
 from collections.abc import Iterable
@@ -66,6 +67,7 @@ def parse_events(raw_events: Iterable[dict]) -> Iterable[Event]:
         hour_begin = int(raw_event["Horaires"].split("-")[0].split("h")[0])
         hour_end = int(raw_event["Horaires"].split("-")[1].split("h")[0])
         start_date = start_date.replace(hour=hour_begin)
+        start_date = start_date.replace(tzinfo=pytz.timezone("Europe/Paris"))
         duration = timedelta(hours=(hour_end - hour_begin))
         attendees = [
             raw_event["Bénévole 1"],
