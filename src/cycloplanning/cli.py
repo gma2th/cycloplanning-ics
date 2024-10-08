@@ -19,6 +19,7 @@ CYCLOPLANNING_URL = "https://lite.framacalc.org/cycloplanning.html"
     type=click.STRING,
     default=CYCLOPLANNING_URL,
 )
+@click.version_option(package_name="cycloplanning")
 def main(output: str, url: str):
     write_ics(create_ics(parse_events(parse_html(get_html(url)))), output)
 
