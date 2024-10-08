@@ -5,6 +5,7 @@ cycloplanning.ics
 .coverage
 coverage.xml
 report.xml
+lcov.info
 
 # python generated files
 __pycache__/
