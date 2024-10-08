@@ -31,3 +31,6 @@ dev-dependencies = [
     "pytest-cov>=5.0.0",
     "flask>=3.0.3",
 ]
+
+[tool.coverage.run]
+source = ["cycloplanning"]
