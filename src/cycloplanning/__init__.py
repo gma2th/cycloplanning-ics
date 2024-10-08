@@ -5,6 +5,9 @@ from collections.abc import Iterable
 from bs4 import BeautifulSoup
 import requests
 import ics
+import logging
+
+LOGGER = logging.getLogger(__name__)
 
 # Define column headers
 HEADERS = [
@@ -62,13 +65,25 @@ def parse_html(html: str) -> Iterable[dict]:
 
 def parse_events(raw_events: Iterable[dict]) -> Iterable[Event]:
     for raw_event in raw_events:
-        start_date = datetime.strptime(raw_event["Date"], "%d/%m")
+        try:
+            start_date = datetime.strptime(raw_event["Date"], "%d/%m")
+        except ValueError:
+            LOGGER.exception(f"Could not parse date for event {raw_event}, skipping.")
+            continue
         start_date = start_date.replace(year=datetime.today().year)
-        hour_begin = int(raw_event["Horaires"].split("-")[0].split("h")[0])
-        hour_end = int(raw_event["Horaires"].split("-")[1].split("h")[0])
-        start_date = start_date.replace(hour=hour_begin)
         start_date = start_date.replace(tzinfo=pytz.timezone("Europe/Paris"))
-        duration = timedelta(hours=(hour_end - hour_begin))
+        try:
+            hour_begin = int(raw_event["Horaires"].split("-")[0].split("h")[0])
+            hour_end = int(raw_event["Horaires"].split("-")[1].split("h")[0])
+            duration = timedelta(hours=(hour_end - hour_begin))
+        except (ValueError, IndexError):
+            LOGGER.exception(
+                f"Could not parse hour for event {raw_event}, setting default."
+            )
+            hour_begin = 0
+            duration = 24
+        finally:
+            start_date = start_date.replace(hour=hour_begin)
         attendees = [
             raw_event["Bénévole 1"],
             raw_event["Bénévole 2"],

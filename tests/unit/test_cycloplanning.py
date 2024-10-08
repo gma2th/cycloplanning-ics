@@ -1,5 +1,7 @@
 import ics
 from datetime import datetime, timedelta
+
+import pytz
 from cycloplanning import HEADERS, Event, create_ics, parse_html, parse_events
 
 
@@ -13,7 +15,7 @@ def test_parse_events():
     # Given
     expected_event = Event(
         name="Lave-kambouis",
-        start_date=datetime(2024, 9, 16, 19),
+        start_date=datetime(2024, 9, 16, 19, tzinfo=pytz.timezone("Europe/Paris")),
         duration=timedelta(hours=2),
         location="15 rue Pierre Bonnard",
         attendees=["Kévin", "", "Tur from Ivry", "Leighton"],
