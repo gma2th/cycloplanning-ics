@@ -8,7 +8,7 @@ build:  ## Build python package
 	@uv build
 
 .PHONY: docker
-docker:  ## Build and push docker image to scaleway registry
+docker: build  ## Build and push docker image to scaleway registry
 	@docker build . -t rg.fr-par.scw.cloud/cycloplanning:latest
 	@docker push rg.fr-par.scw.cloud/cycloplanning/cycloplanning:latest
 
