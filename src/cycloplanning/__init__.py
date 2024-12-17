@@ -57,7 +57,7 @@ def parse_html(html: str) -> Iterable[dict]:
             }
 
             # Skip header rows
-            if row_dict["Jour"] == "Date":
+            if row_dict["Jour"] == "Jour":
                 continue
 
             yield row_dict
