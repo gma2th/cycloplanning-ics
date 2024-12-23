@@ -68,7 +68,7 @@ def parse_events(raw_events: Iterable[dict]) -> Iterable[Event]:
         try:
             start_date = datetime.strptime(raw_event["Date"], "%d/%m")
         except ValueError:
-            LOGGER.exception(f"Could not parse date for event {raw_event}, skipping.")
+            LOGGER.error(f"Could not parse date for event {raw_event}, skipping.")
             continue
         start_date = start_date.replace(year=datetime.today().year)
         start_date = start_date.replace(tzinfo=pytz.timezone("Europe/Paris"))
@@ -77,7 +77,7 @@ def parse_events(raw_events: Iterable[dict]) -> Iterable[Event]:
             hour_end = int(raw_event["Horaires"].split("-")[1].split("h")[0])
             duration = timedelta(hours=(hour_end - hour_begin))
         except (ValueError, IndexError):
-            LOGGER.exception(
+            LOGGER.error(
                 f"Could not parse hour for event {raw_event}, setting default."
             )
             hour_begin = 0
