@@ -15,7 +15,9 @@ def test_parse_events():
     # Given
     expected_event = Event(
         name="Lave-kambouis",
-        start_date=datetime(2024, 9, 16, 19, tzinfo=pytz.timezone("Europe/Paris")),
+        start_date=datetime(
+            datetime.now().year, 9, 16, 19, tzinfo=pytz.timezone("Europe/Paris")
+        ),
         duration=timedelta(hours=2),
         location="15 rue Pierre Bonnard",
         attendees=["Kévin", "", "Tur from Ivry", "Leighton"],

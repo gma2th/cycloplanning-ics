@@ -77,11 +77,8 @@ def parse_events(raw_events: Iterable[dict]) -> Iterable[Event]:
             hour_end = int(raw_event["Horaires"].split("-")[1].split("h")[0])
             duration = timedelta(hours=(hour_end - hour_begin))
         except (ValueError, IndexError):
-            LOGGER.error(
-                f"Could not parse hour for event {raw_event}, setting default."
-            )
-            hour_begin = 0
-            duration = 24
+            LOGGER.error(f"Could not parse hour for event {raw_event}, skipping.")
+            continue
         finally:
             start_date = start_date.replace(hour=hour_begin)
         attendees = [
